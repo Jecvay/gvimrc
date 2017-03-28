@@ -1,0 +1,9 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =7
+let g:netrw_dirhist_1='C:/Users/liujiewei.GAME/Documents/Fantastic/73/script/gameplay'
+let g:netrw_dirhist_2='C:\Users\liujiewei.GAME\Documents\Fantastic\73\script\gameplay'
+let g:netrw_dirhist_3='C:/Users/liujiewei.GAME/Documents/Fantastic/73/script'
+let g:netrw_dirhist_4='C:\Users\liujiewei.GAME\Documents\Fantastic\73\script'
+let g:netrw_dirhist_5='C:\Users\liujiewei.GAME\Documents\Fantastic\73\script\gameplay'
+let g:netrw_dirhist_6='C:\Users\liujiewei.GAME\Documents\Fantastic\73\script'
+let g:netrw_dirhist_7='C:\Users\liujiewei.GAME\Documents\Fantastic\73\res'
