@@ -42,6 +42,7 @@ filetype on
 filetype plugin on
 filetype indent on
 set showmatch
+set matchtime=1
 set scrolloff=3
 set laststatus=2
 
