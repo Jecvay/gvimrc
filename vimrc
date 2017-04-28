@@ -1,6 +1,9 @@
 call plug#begin('~/vimfiles/bundle')
 Plug('ctrlpvim/ctrlp.vim')
 Plug('Shougo/neocomplcache')
+Plug('xolox/vim-misc')
+Plug('xolox/vim-lua-ftplugin')
+Plug('mileszs/ack.vim')
 call plug#end()
 
 " 处理consle输出乱码
@@ -26,6 +29,7 @@ if has("gui_running")
 endif
 
 set nu
+set nowrap
 set autoindent
 set cursorline
 set hlsearch
@@ -45,11 +49,29 @@ set showmatch
 set matchtime=1
 set scrolloff=3
 set laststatus=2
+set history=1000
 
 " 空格开关折叠
 set foldenable
-set foldmethod=manual
+set foldmethod=indent
+set foldlevel=100
 nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc':'zo')<CR>
+
+" 搜索快捷键
+" Search for selected text, forwards or backwards.
+vnoremap <silent> * :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy/<C-R><C-R>=substitute(
+  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy?<C-R><C-R>=substitute(
+  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+
+" 添加 cocos2dx shader 文件类型语法高亮
+au BufNewFile,BufRead *.fsh set filetype=c
 
 """""""""""""""""""""""""""""""""""""""""""""""""
 " neocomplcache
@@ -143,3 +165,9 @@ let g:neocomplcache_force_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
 let g:neocomplcache_force_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
+""""""""""""""""""""""""""""""""""""""""""""""
+" vim-lua-ftplugin
+""""""""""""""""""""""""""""""""""""""""""""""
+let g:lua_define_completefunc = 0
+let g:lua_complete_dynamic=0
