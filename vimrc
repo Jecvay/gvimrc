@@ -21,7 +21,8 @@ if has("gui_running")
 	source $VIMRUNTIME/delmenu.vim
 	source $VIMRUNTIME/menu.vim
 
-	set guifont=Monaco:h10
+	set guifont=Monaco:h9
+	" set guifont=ProFontWindows:h12
 	set guioptions-=m
 	set guioptions-=T
 	set guioptions-=L
