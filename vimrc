@@ -1,9 +1,11 @@
 call plug#begin('~/vimfiles/bundle')
 Plug('ctrlpvim/ctrlp.vim')
 Plug('Shougo/neocomplcache')
+Plug('xolox/vim-shell')
 Plug('xolox/vim-misc')
 Plug('xolox/vim-lua-ftplugin')
 Plug('mileszs/ack.vim')
+
 call plug#end()
 
 " 处理consle输出乱码
@@ -14,20 +16,46 @@ set encoding=utf-8
 set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
 set termencoding=utf-8
 
-color itg_flat
+set autochdir
+color default
 
-if has("gui_running")
+if has("gui_running") 
 	" 处理菜单及右键菜单乱码
 	source $VIMRUNTIME/delmenu.vim
 	source $VIMRUNTIME/menu.vim
+	color itg_flat
 
-	set guifont=Monaco:h9
+	set guifont=Yahei\ Mono:h10
+	" set guifont=Menlo:h8
+	" set guifont=Inconsolata:h9
+	" set guifont=Monaco:h8
 	" set guifont=ProFontWindows:h12
+	" set guifont=Inziu\ Iosevka\ Slab\ CL:h9
+	" set guifont=ProggyTinyTTSZ:h12
 	set guioptions-=m
 	set guioptions-=T
 	set guioptions-=L
 	set guioptions-=r
+
+	set guicursor=i:block-cursor
+	set guicursor+=a:blinkon0
+	set guioptions=icpM
+    if has('win32') || has('win64')
+    "     if (v:version == 704 && has("patch393")) || v:version > 704
+    "         set renderoptions=type:directx,level:0.75,gamma:1.8,contrast:0.5,
+    "                     \geom:1,renmode:5,taamode:1
+	" 	endif
+		set rop=type:directx
+	endif
 endif
+
+if has('nvim')
+	GuiFont Yahei Mono:h15
+	" GuiFont Monaco:h8
+    " set renderoptions=type:directx,level:0.75,gamma:1.8,contrast:0.5,geom:1,renmode:5,taamode:1
+	color itg_flat
+endif
+
 
 set nu
 set nowrap
