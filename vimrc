@@ -16,8 +16,12 @@ set encoding=utf-8
 set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
 set termencoding=utf-8
 
+" ÏÔÊ¾¿Õ°××Ö·û
+set list
+set listchars=tab:>-,trail:-
+
 set autochdir
-color default
+color itg_flat
 
 if has("gui_running") 
 	" ´¦Àí²Ëµ¥¼°ÓÒ¼ü²Ëµ¥ÂÒÂë
@@ -59,12 +63,20 @@ endif
 
 set nu
 set nowrap
-set autoindent
 set cursorline
 set hlsearch
 set incsearch
-set ts=4
-set sw=4
+
+set ai
+" INDENT [https://stackoverflow.com/questions/234564/tab-key-4-spaces-and-auto-indent-after-curly-braces-in-vim]
+filetype plugin indent on
+" show existing tab with 4 spaces width
+set tabstop=4
+" when indenting with '>', use 4 spaces width
+set shiftwidth=4
+" On pressing tab, insert 4 spaces
+set expandtab
+
 set backspace=2		" Powerful backspace
 set ignorecase
 set smartcase
