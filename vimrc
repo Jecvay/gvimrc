@@ -1,10 +1,11 @@
-call plug#begin('~/.vim/bundle')
-    Plug('ctrlpvim/ctrlp.vim')
-    Plug('ludovicchabant/vim-gutentags')
-call plug#end()
+let g:plug_url_format = "git://github.com/%s.git"
+" call plug#begin('~/.vim/bundle')
+"     Plug('git://github.com/ctrlpvim/ctrlp.vim.git')
+"     Plug('git://github.com/ludovicchabant/vim-gutentags.git')
+" call plug#end()
 
 " ´¦ÀíconsleÊä³öÂÒÂë
-language messages zh_CN.utf-8
+" language messages zh_CN.utf-8
 
 " More encoding
 set encoding=utf-8
@@ -18,7 +19,7 @@ set tags=./.tags;,.tags
 set list
 set listchars=tab:>-,trail:-
 
-set autochdir
+" set autochdir
 color itg_flat
 
 if has("gui_running") 
@@ -121,5 +122,7 @@ let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 """""""""""""""""""""""""""""""""
 
+"""" CTRLP
+let g:ctrlp_working_path_mode = 0
 
 
