@@ -1,8 +1,7 @@
-let g:plug_url_format = "git://github.com/%s.git"
-" call plug#begin('~/.vim/bundle')
-"     Plug('git://github.com/ctrlpvim/ctrlp.vim.git')
-"     Plug('git://github.com/ludovicchabant/vim-gutentags.git')
-" call plug#end()
+call plug#begin('~/.vim/bundle')
+    Plug('ludovicchabant/vim-gutentags')
+    Plug('Yggdroot/LeaderF')
+call plug#end()
 
 " ´¦ÀíconsleÊä³öÂÒÂë
 " language messages zh_CN.utf-8
@@ -66,7 +65,8 @@ set tabstop=4
 " when indenting with '>', use 4 spaces width
 set shiftwidth=4
 " On pressing tab, insert 4 spaces
-set expandtab
+" set expandtab
+set noexpandtab
 
 set backspace=2		" Powerful backspace
 set ignorecase
@@ -122,7 +122,22 @@ let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
 let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 """""""""""""""""""""""""""""""""
 
-"""" CTRLP
-let g:ctrlp_working_path_mode = 0
 
-
+"""""""""""""""""""""""""""""""""
+" LeaderF
+let g:Lf_ShortcutF = '<c-p>'
+let g:Lf_ShortcutB = '<m-n>'
+noremap <c-n> :LeaderfMru<cr>
+noremap <c-m> :LeaderfFunction!<cr>
+noremap <m-n> :LeaderfBuffer<cr>
+noremap <m-m> :LeaderfTag<cr>
+let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
+ 
+let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
+let g:Lf_WorkingDirectoryMode = 'Ac'
+let g:Lf_WindowHeight = 0.30
+let g:Lf_CacheDirectory = expand('~/.vim/cache')
+let g:Lf_ShowRelativePath = 0
+let g:Lf_HideHelp = 1
+let g:Lf_StlColorscheme = 'powerline'
+let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
