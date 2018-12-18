@@ -1,3 +1,4 @@
+let g:plug_url_format = 'git://github.com/%s.git'
 call plug#begin('~/.vim/bundle')
     Plug('ludovicchabant/vim-gutentags')
     Plug('Yggdroot/LeaderF')
@@ -141,3 +142,5 @@ let g:Lf_ShowRelativePath = 0
 let g:Lf_HideHelp = 1
 let g:Lf_StlColorscheme = 'powerline'
 let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
+""""""""""""""""""""""""""""""""
+
