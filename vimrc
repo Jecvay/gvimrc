@@ -2,6 +2,7 @@ let g:plug_url_format = 'git://github.com/%s.git'
 call plug#begin('~/.vim/bundle')
     Plug('ludovicchabant/vim-gutentags')
     Plug('Yggdroot/LeaderF')
+	Plug('mileszs/ack.vim')
 call plug#end()
 
 " ´¦ÀíconsleÊä³öÂÒÂë
@@ -13,6 +14,7 @@ set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
 set termencoding=utf-8
 
 set mouse=a
+
 
 " ctags
 set tags=./.tags;,.tags
@@ -168,3 +170,43 @@ if has("autocmd")
     \   exe "normal! g`\"" |
     \ endif
 endif 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Ack - Ag
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+" for FreeBSD csh->zsh jump
+set shell=/usr/local/bin/bash
+
+" fix the conflict with LeaderF
+autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
+
+" for lpc to search specified file type
+function! LpcSearch(key)
+	let saved_shellpipe = &shellpipe
+	let &shellpipe = '>'
+	try
+		execute 'Ack! '.a:key.' **/*\.c'
+		execute 'AckAdd! '.a:key.' **/*.h'
+		execute 'AckAdd! '.a:key.' **/*.cpp'
+		execute 'AckAdd! '.a:key.' **/*.hpp'
+		execute 'AckAdd! '.a:key.' **/*.py'
+	finally
+		let &shellpipe = saved_shellpipe
+	endtry
+endfunction
+command! -nargs=1 Lpc :call LpcSearch(<q-args>)
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+
+
+
+
+
+
+
+
