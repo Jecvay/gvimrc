@@ -174,7 +174,8 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ack - Ag
 if executable('ag')
-  let g:ackprg = 'ag --max-count 5000 --vimgrep'
+  let g:ackprg = 'ag --workers 1 --noaffinity --nommap --vimgrep'
+  set grepprg=ag\ --workers\ 1\ --noaffinity\ --nommap\ --vimgrep\ --cc\ --python\ --cpp
 endif
 
 " for FreeBSD csh->zsh jump
@@ -188,7 +189,7 @@ function! LpcSearch(key)
 	let saved_shellpipe = &shellpipe
 	let &shellpipe = '>'
 	try
-		execute 'Ack! --workers 1 --noaffinity --nommap --cpp --cc --python '.a:key
+		execute 'Ack! --cpp --cc --python '.a:key
 		" execute 'Ack! '.a:key.' *\.c'
 		" execute 'AckAdd! '.a:key.' *\.h'
 		" execute 'AckAdd! '.a:key.' *\.cpp'
