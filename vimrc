@@ -200,6 +200,7 @@ function! LpcSearch(key)
 	endtry
 endfunction
 command! -nargs=1 Lpc :call LpcSearch(<q-args>)
+command! -nargs=0 Lpc :call LpcSearch(expand('<cword>'))
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
