@@ -185,22 +185,22 @@ set shell=/usr/local/bin/bash
 autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 
 " for lpc to search specified file type
-function! LpcSearch(key)
+function! LpcSearch(...)
+	let key = "Jecvay"
 	let saved_shellpipe = &shellpipe
 	let &shellpipe = '>'
+	if a:0 == 0
+		let key = expand('<cword>')
+	elseif a:0 == 1
+		let key = a:1
+	endif
 	try
-		execute 'Ack! --cpp --cc --python '.a:key
-		" execute 'Ack! '.a:key.' *\.c'
-		" execute 'AckAdd! '.a:key.' *\.h'
-		" execute 'AckAdd! '.a:key.' *\.cpp'
-		" execute 'AckAdd! '.a:key.' *\.hpp'
-		" execute 'AckAdd! '.a:key.' *\.py'
+		execute 'Ack! --cpp --cc --python '.key
 	finally
 		let &shellpipe = saved_shellpipe
 	endtry
 endfunction
-command! -nargs=1 Lpc :call LpcSearch(<q-args>)
-command! -nargs=0 Lpc :call LpcSearch(expand('<cword>'))
+command! -nargs=? Lpc :call LpcSearch(<f-args>)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
