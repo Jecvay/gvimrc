@@ -25,6 +25,10 @@ set listchars=tab:>-,trail:-
 
 " set autochdir
 color itg_flat
+if &diff
+	color darkburn
+	set readonly
+endif
 
 if has("gui_running") 
 	" 处理菜单及右键菜单乱码
