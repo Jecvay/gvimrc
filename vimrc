@@ -14,6 +14,11 @@ set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
 set termencoding=utf-8
 
 set mouse=a
+if has("mouse_sgr")
+	set ttymouse=sgr
+else
+	set ttymouse=xterm2
+end
 
 
 " ctags
@@ -154,7 +159,7 @@ let g:Lf_StlColorscheme = 'powerline'
 let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
 let g:Lf_WildIgnore = {
 	\ 'dir': [],
-	\ 'file': ['*.o', '*.xls', '*.py[co]']
+	\ 'file': ['*.o', '*.xls', '*.py[co]', '*.xls[x]']
 	\}
 
 """"""""""""""""""""""""""""""""
@@ -193,10 +198,10 @@ function! LpcSearch(...)
 	let key = "Jecvay"
 	let saved_shellpipe = &shellpipe
 	let &shellpipe = '>'
-	if a:0 == 0
+	if (a:0 == 0)
 		let key = expand('<cword>')
-	elseif a:0 == 1
-		let key = a:1
+	elseif (a:0 >= 1)
+		let key = '"'.join(a:000).'"'
 	endif
 	try
 		execute 'Ack! --cpp --cc --python '.key
