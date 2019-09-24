@@ -3,6 +3,8 @@ call plug#begin('~/.vim/bundle')
     Plug('ludovicchabant/vim-gutentags')
     Plug('Yggdroot/LeaderF')
 	Plug('mileszs/ack.vim')
+	Plug('godlygeek/tabular')
+	Plug('plasticboy/vim-markdown')
 call plug#end()
 
 " ´¦ÀíconsleÊä³öÂÒÂë
