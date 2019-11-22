@@ -1,8 +1,10 @@
 let g:plug_url_format = 'git://github.com/%s.git'
 call plug#begin('~/.vim/bundle')
     Plug('ludovicchabant/vim-gutentags')
-    Plug('Yggdroot/LeaderF')
+    " Plug('Yggdroot/LeaderF')
+	Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
 	Plug('mileszs/ack.vim')
+	Plug('dracula/vim')
 call plug#end()
 
 " ´¦ÀíconsleÊä³öÂÒÂë
@@ -10,8 +12,8 @@ call plug#end()
 
 " More encoding
 set encoding=utf-8
-set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
-set termencoding=utf-8
+" set fileencodings=utf-8,gb2312,gb18030,gbk,ucs-bom,cp936,latin1
+" set termencoding=utf-8
 
 set mouse=a
 if has("mouse_sgr")
@@ -20,6 +22,8 @@ else
 	set ttymouse=xterm2
 end
 
+" ESC delay remove
+set timeoutlen=0
 
 " ctags
 set tags=./.tags;,.tags
@@ -75,9 +79,11 @@ set ai
 " INDENT [https://stackoverflow.com/questions/234564/tab-key-4-spaces-and-auto-indent-after-curly-braces-in-vim]
 filetype plugin indent on
 " show existing tab with 4 spaces width
-set tabstop=4
+" set tabstop=4
+set tabstop=2
 " when indenting with '>', use 4 spaces width
-set shiftwidth=4
+" set shiftwidth=4
+set shiftwidth=0
 " On pressing tab, insert 4 spaces
 " set expandtab
 set noexpandtab
@@ -150,15 +156,15 @@ let g:Lf_StlSeparator = { 'left': '', 'right': '', 'font': '' }
 let g:Lf_WorkingDirectory = getcwd()		" using this when disable auto-change-vim-path
 " let g:Lf_RootMarkers = ['.project', '.root', '.svn', '.git']
 " let g:Lf_WorkingDirectoryMode = 'Ac'
-let g:Lf_DefaultMode = 'NameOnly'
+let g:Lf_DefaultMode = 'FullPath'
 let g:Lf_WindowHeight = 0.30
 let g:Lf_CacheDirectory = expand('~/.vim/cache')
 let g:Lf_ShowRelativePath = 0
 let g:Lf_HideHelp = 1
 let g:Lf_StlColorscheme = 'powerline'
-let g:Lf_PreviewResult = {'Function':0, 'BufTag':0}
+let g:Lf_PreviewResult = {'Function':1, 'BufTag':1}
 let g:Lf_WildIgnore = {
-	\ 'dir': [],
+	\ 'dir': ['qaluac'],
 	\ 'file': ['*.o', '*.xls', '*.py[co]', '*.xls[x]']
 	\}
 
@@ -212,7 +218,7 @@ endfunction
 command! -nargs=? Lpc :call LpcSearch(<f-args>)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-
+let g:python_recommended_style = 0
 
 
 
