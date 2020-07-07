@@ -1,12 +1,16 @@
 let g:plug_url_format = 'git://github.com/%s.git'
 call plug#begin('~/.vim/bundle')
-	Plug('ludovicchabant/vim-gutentags')
-	Plug('Yggdroot/LeaderF')
-	" Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
+	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+	Plug 'junegunn/fzf.vim'
+
 	Plug('mileszs/ack.vim')
-	Plug('dracula/vim')
-	Plug('godlygeek/tabular')
+	Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+	" Plug 'Yggdroot/LeaderF', { 'do': '.\install.bat' }
+
+	" Plug('dracula/vim')
+	" Plug('godlygeek/tabular')
 	Plug('plasticboy/vim-markdown')
+	Plug('ludovicchabant/vim-gutentags')
 call plug#end()
 
 " ¥¶¿Ìconsle ‰≥ˆ¬“¬Î
@@ -145,9 +149,10 @@ let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
 """""""""""""""""""""""""""""""""
 
 
+noremap <c-p> :Files<cr>
 """""""""""""""""""""""""""""""""
 " LeaderF
-let g:Lf_ShortcutF = '<c-p>'
+" let g:Lf_ShortcutF = '<c-p>'
 let g:Lf_ShortcutB = '<m-n>'
 noremap <c-n> :LeaderfMru<cr>
 noremap <c-m> :LeaderfFunction!<cr>
@@ -166,8 +171,8 @@ let g:Lf_HideHelp = 1
 let g:Lf_StlColorscheme = 'powerline'
 let g:Lf_PreviewResult = {'Function':1, 'BufTag':1}
 let g:Lf_WildIgnore = {
-	\ 'dir': ['qaluac'],
-	\ 'file': ['*.o', '*.xls', '*.py[co]', '*.xls[x]']
+	\ 'dir': ['qaluac', 'at/coverage'],
+	\ 'file': ['*.o', '*.xls', '*.py[co]', '*.xls[x]', '*.htm[l]']
 	\}
 
 """"""""""""""""""""""""""""""""
@@ -188,20 +193,28 @@ if has("autocmd")
     \ endif
 endif
 
+" for FreeBSD csh->zsh jump
+" https://stackoverflow.com/questions/9092347/how-to-make-vim-use-the-same-environment-as-my-login-shell-when-running-commands
+set shell=bash
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" fzf
+" nnoremap <silent> <C-p> :Files<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ack - Ag
 if executable('ag')
-	let g:ackprg = 'ag --workers 1 --noaffinity --nommap --vimgrep'
-  	set grepprg=ag\ --workers\ 1\ --noaffinity\ --nommap\ --vimgrep\ --cc\ --python\ --cpp
+	let g:ackprg = 'ag --workers 1 --noaffinity --nommap --vimgrep --cc --cpp --python'
+  " set grepprg=ag\ --workers\ 1\ --noaffinity\ --nommap\ --vimgrep\ --cc\ --python\ --cpp
 endif
 
 if executable('rg')
 	let g:ackprg = 'rg --vimgrep'
-  	set grepprg=rg\ --vimgrep\ -tc\ -tpy\ -tcpp
+  " set grepprg=rg\ --vimgrep\ -tc\ -tpy\ -tcpp
 endif
 
-" for FreeBSD csh->zsh jump
-set shell=/bin/bash
 
 " fix the conflict with LeaderF
 autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
@@ -217,7 +230,8 @@ function! LpcSearch(...)
 		let key = '"'.join(a:000).'"'
 	endif
 	try
-		execute 'Ack! -tc -tcpp -tpy '.key
+		execute 'Ack! '.key
+		" execute 'Ag '.key
 	finally
 		let &shellpipe = saved_shellpipe
 	endtry
