@@ -35,6 +35,23 @@ set cursorline
 set hlsearch
 set incsearch
 
+" See `man fzf-tmux` for available options
+" if exists('$TMUX')
+"   let g:fzf_layout = { 'tmux': '-p90%,60%' }
+" else
+  let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+" endif
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg -tc -tcpp -tpy -g "!conf_data/**" -g "!.svn/**" -g "!ca/**" -g "!log/**" --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+
+command! -bang -nargs=* Rgall
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+
 set ai
 " INDENT [https://stackoverflow.com/questions/234564/tab-key-4-spaces-and-auto-indent-after-curly-braces-in-vim]
 filetype plugin indent on
@@ -107,12 +124,6 @@ let g:gutentags_auto_add_gtags_cscope = 0
 " debug
 let g:gutentags_define_advanced_commands = 1
 """""""""""""""""""""""""""""""""
-
-
-noremap <c-p> :Files<cr>
-noremap <c-g> :Rg<Cr>
-
-""""""""""""""""""""""""""""""""
 " Debug highlight <F10>
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
 			\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
@@ -135,40 +146,14 @@ set shell=bash
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " fzf
 " nnoremap <silent> <C-p> :Files<CR>
+noremap <c-p> :Files<cr>
+" noremap <c-h> :Rg expand("<cword>")<Cr>
+noremap <CR>	:BTags<Cr>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let $GTAGSLABEL = 'native-pygments'
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Ack - Ag
-if executable('ag')
-	let g:ackprg = 'ag --workers 1 --noaffinity --nommap --vimgrep --cc --cpp --python'
-  " set grepprg=ag\ --workers\ 1\ --noaffinity\ --nommap\ --vimgrep\ --cc\ --python\ --cpp
-endif
-
-if executable('rg')
-	let g:ackprg = 'rg --smart-case --vimgrep -tpy -tc -tcpp -th'
-  " set grepprg=rg\ --vimgrep\ -tc\ -tpy\ -tcpp
-endif
-
-" for lpc to search specified file type
-function! LpcSearch(...)
-	let key = "Jecvay"
-	let saved_shellpipe = &shellpipe
-	let &shellpipe = '>'
-	if (a:0 == 0)
-		let key = expand('<cword>')
-	elseif (a:0 >= 1)
-		let key = '"'.join(a:000).'"'
-	endif
-	try
-		execute 'Ack! '.key
-		" execute 'Ag '.key
-	finally
-		let &shellpipe = saved_shellpipe
-	endtry
-endfunction
-command! -nargs=? Lpc :call LpcSearch(<f-args>)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:python_recommended_style = 0
