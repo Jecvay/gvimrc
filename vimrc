@@ -9,6 +9,7 @@ call plug#end()
 
 set encoding=utf-8
 
+let mapleader="-"
 set mouse=a
 if has("mouse_sgr")
         set ttymouse=sgr
@@ -145,11 +146,9 @@ set shell=bash
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " fzf
-" nnoremap <silent> <C-p> :Files<CR>
-noremap <c-p> :Files<cr>
-" noremap <c-h> :Rg expand("<cword>")<Cr>
-noremap <CR>    :BTags<Cr>
-
+nnoremap <silent> <C-p> :Files<CR>
+nnoremap <silent> <c-h> :Rg <C-R><C-W><Cr>
+nnoremap <silent> <CR>  :BTags<Cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let $GTAGSLABEL = 'native-pygments'
