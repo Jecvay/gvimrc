@@ -9,11 +9,12 @@ call plug#end()
 
 set encoding=utf-8
 
+let mapleader="-"
 set mouse=a
 if has("mouse_sgr")
-	set ttymouse=sgr
+        set ttymouse=sgr
 else
-	set ttymouse=xterm2
+        set ttymouse=xterm2
 end
 
 " https://zhuanlan.zhihu.com/p/47801331
@@ -28,7 +29,7 @@ set relativenumber
 
 " 显示行首tab吗？
 " set list
-set nolist
+set list
 set listchars=tab:>-,trail:-
 
 " set autochdir
@@ -78,7 +79,7 @@ set shiftwidth=0
 " set expandtab
 set noexpandtab
 
-set backspace=2		" Powerful backspace
+set backspace=2         " Powerful backspace
 set ignorecase
 set smartcase
 syntax on
@@ -124,7 +125,7 @@ let g:gutentags_ctags_tagfile = '.tags'
 " project
 let s:vim_tags = expand('~/.cache/tags')
 let g:gutentags_cache_dir = s:vim_tags
- 
+
 " change focus to quickfix window after search (optional).
 let g:gutentags_plus_switch = 1
 
@@ -139,8 +140,8 @@ let g:gutentags_define_advanced_commands = 1
 """""""""""""""""""""""""""""""""
 " Debug highlight <F10>
 map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-			\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-			\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+                        \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+                        \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 """"""""""""""""""""""""""""""""
 " Uncomment the following to have Vim jump to the last position when
@@ -171,12 +172,4 @@ let $GTAGSLABEL = 'native-pygments'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:python_recommended_style = 0
-
-
-
-
-
-
-
-
 
