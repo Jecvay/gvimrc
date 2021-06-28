@@ -4,7 +4,7 @@ call plug#begin('~/.vim/bundle')
 	Plug 'junegunn/fzf.vim'
 	Plug('plasticboy/vim-markdown')
 	Plug('ludovicchabant/vim-gutentags')
-	Plug('skywind3000/gutentags_plus')
+"	Plug('skywind3000/gutentags_plus')
 call plug#end()
 
 set encoding=utf-8
@@ -16,14 +16,24 @@ else
 	set ttymouse=xterm2
 end
 
-" ESC delay remove
-set timeoutlen=0
+" https://zhuanlan.zhihu.com/p/47801331
+if $TMUX != ''
+	set ttimeoutlen=20
+elseif &ttimeoutlen > 60 || &ttimeoutlen <= 0
+	set ttimeoutlen=60
+endif
 
-set list
+" 相对行号
+set relativenumber
+
+" 显示行首tab吗？
+" set list
+set nolist
 set listchars=tab:>-,trail:-
 
 " set autochdir
-color itg_flat
+color iceberg
+set background=light
 if &diff
 	color darkburn
 	set readonly
@@ -35,6 +45,8 @@ set cursorline
 set hlsearch
 set incsearch
 
+highlight fzf1 ctermfg=251 ctermbg=0
+
 " See `man fzf-tmux` for available options
 " if exists('$TMUX')
 "   let g:fzf_layout = { 'tmux': '-p90%,60%' }
@@ -42,19 +54,20 @@ set incsearch
   let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
 " endif
 
+"  \   'rg -tc -tcpp -tpy -g "!.svn/**" -g "!ca/**" -g "!log/**" --column --line-number --no-heading --vimgrep --smart-case -- '.shellescape(<q-args>), 1,
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
-  \   'rg -tc -tcpp -tpy -g "!conf_data/**" -g "!.svn/**" -g "!ca/**" -g "!log/**" --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+	\ 'rg -tc -tcpp -tpy -g "!conf_data/**" -g "!.svn/**" -g "!ca/**" -g "!log/**" --column --line-number --no-heading --color=auto --smart-case -- '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview(), <bang>0)
 
 command! -bang -nargs=* Rgall
   \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   'rg -g "!.svn/**" --column --line-number --no-heading --color=auto --smart-case -- '.shellescape(<q-args>), 1,
   \   fzf#vim#with_preview(), <bang>0)
 
 set ai
 " INDENT [https://stackoverflow.com/questions/234564/tab-key-4-spaces-and-auto-indent-after-curly-braces-in-vim]
-filetype plugin indent on
+" filetype plugin indent on
 " show existing tab with 4 spaces width
 " set tabstop=4
 set tabstop=2
@@ -72,7 +85,7 @@ syntax on
 set nobackup
 setlocal noswapfile
 filetype on
-filetype plugin on
+" filetype plugin on
 filetype indent on
 set showmatch
 set matchtime=1
@@ -103,7 +116,7 @@ au BufNewFile,BufRead *.fsh set filetype=c
 """""""""""""""""""""""""""""""""
 " gutentags
 
-let g:gutentags_modules = ['ctags', 'gtags_cscope']
+" let g:gutentags_modules = ['ctags', 'gtags_cscope']
 let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
 let g:gutentags_ctags_tagfile = '.tags'
 
@@ -145,11 +158,12 @@ set shell=bash
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " fzf
-" nnoremap <silent> <C-p> :Files<CR>
-noremap <c-p> :Files<cr>
-" noremap <c-h> :Rg expand("<cword>")<Cr>
-noremap <CR>	:BTags<Cr>
+nnoremap <silent> <C-p> :Files<CR>
+nnoremap <silent> <c-h> :Rg <C-R><C-W><Cr>
+nnoremap <silent> <CR>	:BTags<Cr>
 
+let mapleader=","
+map <Leader>rg :Rg 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let $GTAGSLABEL = 'native-pygments'
