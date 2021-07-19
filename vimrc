@@ -2,9 +2,7 @@ let g:plug_url_format = 'git://github.com/%s.git'
 call plug#begin('~/.vim/bundle')
 	Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 	Plug 'junegunn/fzf.vim'
-	Plug('plasticboy/vim-markdown')
-	Plug('ludovicchabant/vim-gutentags')
-"	Plug('skywind3000/gutentags_plus')
+	Plug 'neoclide/coc.nvim', {'branch': 'release'}
 call plug#end()
 
 set encoding=utf-8
@@ -16,6 +14,10 @@ if has("mouse_sgr")
 else
         set ttymouse=xterm2
 end
+
+" test coc.nvim
+nmap <silent> <C-]> <Plug>(coc-definition)
+let g:coc_global_extensions = ['coc-lpc', 'coc-ccls']
 
 " https://zhuanlan.zhihu.com/p/47801331
 if $TMUX != ''
@@ -33,8 +35,8 @@ set list
 set listchars=tab:>-,trail:-
 
 " set autochdir
-color iceberg
-set background=light
+color itg_flat
+set background=dark
 if &diff
 	color darkburn
 	set readonly
@@ -115,34 +117,34 @@ vnoremap <silent> # :<C-U>
 au BufNewFile,BufRead *.fsh set filetype=c
 
 """""""""""""""""""""""""""""""""
-" gutentags
-
-" let g:gutentags_modules = ['ctags', 'gtags_cscope']
-let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
-let g:gutentags_ctags_tagfile = '.tags'
-
-" generate datebases in my cache directory, prevent gtags files polluting my
-" project
-let s:vim_tags = expand('~/.cache/tags')
-let g:gutentags_cache_dir = s:vim_tags
-
-" change focus to quickfix window after search (optional).
-let g:gutentags_plus_switch = 1
-
-let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-
-let g:gutentags_auto_add_gtags_cscope = 0
-
-" debug
-let g:gutentags_define_advanced_commands = 1
-"""""""""""""""""""""""""""""""""
-" Debug highlight <F10>
-map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-                        \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-                        \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
+"    " gutentags
+"    
+"    " let g:gutentags_modules = ['ctags', 'gtags_cscope']
+"    let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
+"    let g:gutentags_ctags_tagfile = '.tags'
+"    
+"    " generate datebases in my cache directory, prevent gtags files polluting my
+"    " project
+"    let s:vim_tags = expand('~/.cache/tags')
+"    let g:gutentags_cache_dir = s:vim_tags
+"    
+"    " change focus to quickfix window after search (optional).
+"    let g:gutentags_plus_switch = 1
+"    
+"    let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
+"    let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
+"    let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
+"    
+"    let g:gutentags_auto_add_gtags_cscope = 0
+"    
+"    " debug
+"    let g:gutentags_define_advanced_commands = 1
+"    """""""""""""""""""""""""""""""""
+"    " Debug highlight <F10>
+"    map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+"                            \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+"                            \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+"    
 """"""""""""""""""""""""""""""""
 " Uncomment the following to have Vim jump to the last position when
 " reopening a file
@@ -163,8 +165,8 @@ nnoremap <silent> <C-p> :Files<CR>
 nnoremap <silent> <c-h> :Rg <C-R><C-W><Cr>
 nnoremap <silent> <CR>	:BTags<Cr>
 
-let mapleader=","
-map <Leader>rg :Rg 
+map <Leader>f :Rg 
+map <Leader>l :set filetype=lpc<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let $GTAGSLABEL = 'native-pygments'
